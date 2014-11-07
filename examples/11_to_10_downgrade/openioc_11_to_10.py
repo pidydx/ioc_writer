@@ -29,7 +29,7 @@ import glob
 
 from lxml import etree as et
 
-from ioc_writer import ioc_api
+from ioc_writer import ioc_api, ioc_et
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(levelname)s: %(message)s  [%(filename)s:%(funcName)s]')
 
@@ -263,7 +263,7 @@ class ioc_manager:
                 content_type = node.xpath('Content/@type')[0]
                 content = node.findtext('Content')
                 context_type = node.xpath('Context/@type')[0]
-                new_II_node = ioc_api.make_IndicatorItem_node(condition = condition, 
+                new_II_node = ioc_et.make_IndicatorItem_node(condition = condition, 
                                                             document = document,
                                                             search = search,
                                                             content_type = content_type, 
@@ -286,7 +286,7 @@ class ioc_manager:
                 operator = node.get('operator')
                 if operator.upper() not in ['OR', 'AND']:
                     raise IOCParseError('Indicator@operator is not AND/OR. [%s] has [%s]' % (node_id, operator) )
-                new_I_node = ioc_api.make_Indicator_node(operator, node_id)
+                new_I_node = ioc_et.make_Indicator_node(operator, node_id)
                 new_node.append(new_I_node)
                 self.convert_branch(node, new_I_node, ids_to_skip, comment_dict)                    
             else:

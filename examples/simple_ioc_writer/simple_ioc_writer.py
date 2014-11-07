@@ -51,7 +51,7 @@ import csv
 import datetime
 import optparse
 
-from ioc_writer import ioc_api
+from ioc_writer import ioc_api, ioc_et
 
     
 def create_ioc_object(ioc_name,items,and_or=True):
@@ -59,12 +59,12 @@ def create_ioc_object(ioc_name,items,and_or=True):
     top_level_or_node = IOC.top_level_indicator
     # build the definition
     if and_or:
-        second_level_and_node = ioc_api.make_Indicator_node('AND')
+        second_level_and_node = ioc_et.make_Indicator_node('AND')
         top_level_or_node.append(second_level_and_node)
     for item in items:
         condition, document, search, content_type, content = tuple(item)
         #print condition, document, search, content_type, content
-        IndicatorItem_node = ioc_api.make_IndicatorItem_node(condition, document, search, content_type, content)
+        IndicatorItem_node = ioc_et.make_IndicatorItem_node(condition, document, search, content_type, content)
         if and_or:
             second_level_and_node.append(IndicatorItem_node)
         else:
